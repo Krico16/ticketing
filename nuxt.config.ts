@@ -15,7 +15,6 @@ export default defineNuxtConfig({
   },
   ui: {
     global: true,
-    icons: ['heroicons', 'lucide']
   },
   tailwindcss: {
     config: {
@@ -28,8 +27,6 @@ export default defineNuxtConfig({
             'card-foreground': 'hsl(var(--card-foreground))',
             popover: 'hsl(var(--popover))',
             'popover-foreground': 'hsl(var(--popover-foreground))',
-            primary: 'hsl(var(--primary))',
-            'primary-foreground': 'hsl(var(--primary-foreground))',
             secondary: 'hsl(var(--secondary))',
             'secondary-foreground': 'hsl(var(--secondary-foreground))',
             muted: 'hsl(var(--muted))',
