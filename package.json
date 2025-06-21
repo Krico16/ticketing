@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-ticketing-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "HOST=0.0.0.0 nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.13.0",
+    "@nuxt/ui": "^2.18.4",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@nuxtjs/color-mode": "^3.4.4",
+    "@pinia/nuxt": "^0.5.4",
+    "@vueuse/nuxt": "^11.0.3",
+    "pinia": "^2.2.2",
+    "vue-toastification": "^2.0.0-rc.5",
+    "@headlessui/vue": "^1.7.22",
+    "@heroicons/vue": "^2.0.18",
+    "zod": "^3.23.8",
+    "@vee-validate/zod": "^4.13.2",
+    "vee-validate": "^4.13.2"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest"
+  }
+}
