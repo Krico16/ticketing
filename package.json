@@ -8,24 +8,35 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "test": "vitest",
+    "test:run": "vitest --run"
   },
   "dependencies": {
-    "nuxt": "^3.13.0",
-    "@nuxt/ui": "^2.18.4",
-    "@nuxtjs/tailwindcss": "^6.12.1",
-    "@nuxtjs/color-mode": "^3.4.4",
-    "@pinia/nuxt": "^0.5.4",
-    "@vueuse/nuxt": "^11.0.3",
-    "pinia": "^2.2.2",
-    "vue-toastification": "^2.0.0-rc.5",
     "@headlessui/vue": "^1.7.22",
     "@heroicons/vue": "^2.0.18",
-    "zod": "^3.23.8",
+    "@nuxt/ui": "^2.18.4",
+    "@nuxtjs/color-mode": "^3.4.4",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/nuxt": "^0.5.4",
     "@vee-validate/zod": "^4.13.2",
-    "vee-validate": "^4.13.2"
+    "@vueuse/nuxt": "^11.0.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "nuxt": "^3.13.0",
+    "pinia": "^2.2.2",
+    "tailwind-merge": "^3.3.1",
+    "vee-validate": "^4.13.2",
+    "vue-toastification": "^2.0.0-rc.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest"
+    "@nuxt/devtools": "latest",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^17.6.1",
+    "shadcn": "^2.9.3",
+    "shadcn-ui": "^0.9.5",
+    "vitest": "^3.2.4"
   }
 }

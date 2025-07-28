@@ -8,23 +8,28 @@
       </div>
 
       <!-- Filters -->
-      <div class="bg-white rounded-lg shadow-sm border p-6 mb-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <UInput v-model="searchQuery" placeholder="Search events..." icon="heroicons:magnifying-glass" />
-          <USelect v-model="selectedCategory" :options="categoryOptions" placeholder="All Categories" />
-          <UInput v-model="selectedDate" type="date" />
-          <UButton @click="clearFilters" variant="outline">
-            <Icon name="heroicons:x-mark" class="w-4 h-4 mr-2" />
-            Clear Filters
-          </UButton>
-        </div>
-      </div>
+      <Card class="mb-8">
+        <CardContent class="pt-6">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="relative">
+              <Icon name="heroicons:magnifying-glass" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input v-model="searchQuery" placeholder="Search events..." class="pl-10" />
+            </div>
+            <USelect v-model="selectedCategory" :options="categoryOptions" placeholder="All Categories" />
+            <Input v-model="selectedDate" type="date" />
+            <Button @click="clearFilters" variant="outline">
+              <Icon name="heroicons:x-mark" class="w-4 h-4 mr-2" />
+              Clear Filters
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <!-- Events Grid -->
       <div v-if="filteredEvents.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="event in filteredEvents" :key="event.id" class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+        <Card v-for="event in filteredEvents" :key="event.id" class="overflow-hidden hover:shadow-lg transition-shadow">
           <img :src="event.image" :alt="event.title" class="w-full h-48 object-cover" />
-          <div class="p-6">
+          <CardContent class="p-6">
             <div class="flex items-center justify-between mb-2">
               <UBadge :color="getCategoryColor(event.category)" variant="subtle">
                 {{ event.category }}
@@ -47,11 +52,13 @@
                 <span>{{ event.attendees }}/{{ event.maxAttendees }} attendees</span>
               </div>
             </div>
-            <UButton :to="`/events/${event.id}`" block>
-              View Details
-            </UButton>
-          </div>
-        </div>
+            <NuxtLink :to="`/events/${event.id}`" class="block">
+              <Button class="w-full">
+                View Details
+              </Button>
+            </NuxtLink>
+          </CardContent>
+        </Card>
       </div>
 
       <!-- No Events Found -->
@@ -65,8 +72,6 @@
 </template>
 
 <script setup>
-const { events } = useEventsStore()
-
 const searchQuery = ref('')
 const selectedCategory = ref('')
 const selectedDate = ref('')
@@ -81,15 +86,17 @@ const categoryOptions = [
 ]
 
 const filteredEvents = computed(() => {
-  let filtered = [...events.value]
+  const { events } = useEventsStore()
 
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(event => 
-      event.title.toLowerCase().includes(query) ||
-      event.description.toLowerCase().includes(query) ||
-      event.location.toLowerCase().includes(query)
-    )
+  let filtered = [...events]
+
+  if(searchQuery.value) {
+    const query = searchQuery.value.toLowerCase();
+    filtered = filtered.filter((event) => 
+    event.title.toLowerCase().includes(query) ||
+    event.description.toLowerCase().includes(query) ||
+    event.location.toLowerCase().includes(query)
+   )
   }
 
   if (selectedCategory.value) {

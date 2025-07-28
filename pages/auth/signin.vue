@@ -18,90 +18,95 @@
         </p>
       </div>
 
-      <UCard>
-        <form @submit.prevent="handleSignIn" class="space-y-6">
-          <div>
-            <UFormGroup label="Email address" required>
-              <UInput 
+      <Card>
+        <CardContent class="pt-6">
+          <form @submit.prevent="handleSignIn" class="space-y-6">
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-medium text-foreground">Email address *</label>
+              <Input 
+                id="email"
                 v-model="form.email" 
                 type="email" 
                 placeholder="Enter your email"
-                :error="errors.email"
+                :error-message="errors.email"
               />
-            </UFormGroup>
-          </div>
+            </div>
 
-          <div>
-            <UFormGroup label="Password" required>
-              <UInput 
+            <div class="space-y-2">
+              <label for="password" class="text-sm font-medium text-foreground">Password *</label>
+              <Input 
+                id="password"
                 v-model="form.password" 
                 type="password" 
                 placeholder="Enter your password"
-                :error="errors.password"
+                :error-message="errors.password"
               />
-            </UFormGroup>
-          </div>
-
-          <div class="flex items-center justify-between">
-            <UCheckbox v-model="form.remember" label="Remember me" />
-            <a href="#" class="text-sm text-blue-600 hover:text-blue-500">
-              Forgot your password?
-            </a>
-          </div>
-
-          <div>
-            <UButton 
-              type="submit" 
-              block 
-              size="lg"
-              :loading="loading"
-            >
-              Sign in
-            </UButton>
-          </div>
-        </form>
-
-        <div class="mt-6">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300" />
             </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">Demo Accounts</span>
+
+            <div class="flex items-center justify-between">
+              <UCheckbox v-model="form.remember" label="Remember me" />
+              <a href="#" class="text-sm text-blue-600 hover:text-blue-500">
+                Forgot your password?
+              </a>
+            </div>
+
+            <div>
+              <Button 
+                type="submit" 
+                class="w-full"
+                size="lg"
+                :disabled="loading"
+              >
+                <span v-if="loading" class="mr-2">
+                  <Icon name="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
+                </span>
+                Sign in
+              </Button>
+            </div>
+          </form>
+
+          <div class="mt-6">
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300" />
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">Demo Accounts</span>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 gap-3">
+              <Button 
+                variant="outline" 
+                class="w-full"
+                @click="signInAs('admin')"
+                :disabled="loading"
+              >
+                <Icon name="heroicons:shield-check" class="w-4 h-4 mr-2" />
+                Sign in as Admin
+              </Button>
+              <Button 
+                variant="outline" 
+                class="w-full"
+                @click="signInAs('organizer')"
+                :disabled="loading"
+              >
+                <Icon name="heroicons:building-office" class="w-4 h-4 mr-2" />
+                Sign in as Organizer
+              </Button>
+              <Button 
+                variant="outline" 
+                class="w-full"
+                @click="signInAs('user')"
+                :disabled="loading"
+              >
+                <Icon name="heroicons:user" class="w-4 h-4 mr-2" />
+                Sign in as User
+              </Button>
             </div>
           </div>
-
-          <div class="mt-6 grid grid-cols-1 gap-3">
-            <UButton 
-              variant="outline" 
-              block
-              @click="signInAs('admin')"
-              :loading="loading"
-            >
-              <Icon name="heroicons:shield-check" class="w-4 h-4 mr-2" />
-              Sign in as Admin
-            </UButton>
-            <UButton 
-              variant="outline" 
-              block
-              @click="signInAs('organizer')"
-              :loading="loading"
-            >
-              <Icon name="heroicons:building-office" class="w-4 h-4 mr-2" />
-              Sign in as Organizer
-            </UButton>
-            <UButton 
-              variant="outline" 
-              block
-              @click="signInAs('user')"
-              :loading="loading"
-            >
-              <Icon name="heroicons:user" class="w-4 h-4 mr-2" />
-              Sign in as User
-            </UButton>
-          </div>
-        </div>
-      </UCard>
+        </CardContent>
+      </Card>
     </div>
   </div>
 </template>

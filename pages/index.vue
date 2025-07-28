@@ -11,14 +11,14 @@
             Connect with your community through unforgettable experiences
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <UButton size="xl" color="white" variant="solid" @click="navigateTo('/events')">
+            <Button size="lg" class="bg-white text-blue-600 hover:bg-gray-50" @click="navigateTo('/events')">
               <Icon name="heroicons:magnifying-glass" class="w-5 h-5 mr-2" />
               Browse Events
-            </UButton>
-            <UButton v-if="!isAuthenticated" size="xl" color="white" variant="outline" @click="navigateTo('/auth/signup')">
+            </Button>
+            <Button v-if="!isAuthenticated" size="lg" variant="outline" class="border-white text-white hover:bg-white hover:text-blue-600" @click="navigateTo('/auth/signup')">
               <Icon name="heroicons:plus" class="w-5 h-5 mr-2" />
               Create Account
-            </UButton>
+            </Button>
           </div>
         </div>
       </div>
@@ -33,9 +33,9 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="event in featuredEvents" :key="event.id" class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+          <Card v-for="event in featuredEvents" :key="event.id" class="overflow-hidden hover:shadow-lg transition-shadow">
             <img :src="event.image" :alt="event.title" class="w-full h-48 object-cover" />
-            <div class="p-6">
+            <CardContent class="p-6">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-sm text-blue-600 font-semibold">{{ event.category }}</span>
                 <span class="text-sm text-gray-500">${{ event.price }}</span>
@@ -48,18 +48,22 @@
                 <Icon name="heroicons:map-pin" class="w-4 h-4 mr-1" />
                 <span>{{ event.location }}</span>
               </div>
-              <UButton :to="`/events/${event.id}`" block>
-                View Details
-              </UButton>
-            </div>
-          </div>
+              <NuxtLink :to="`/events/${event.id}`" class="block">
+                <Button class="w-full">
+                  View Details
+                </Button>
+              </NuxtLink>
+            </CardContent>
+          </Card>
         </div>
 
         <div class="text-center mt-12">
-          <UButton to="/events" size="lg" variant="outline">
-            View All Events
-            <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" />
-          </UButton>
+          <NuxtLink to="/events">
+            <Button size="lg" variant="outline">
+              View All Events
+              <Icon name="heroicons:arrow-right" class="w-4 h-4 ml-2" />
+            </Button>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -89,12 +93,12 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Ready to Host Your Event?</h2>
         <p class="text-lg text-gray-600 mb-8">Join thousands of organizers who trust EventHub to manage their events</p>
-        <UButton v-if="!isAuthenticated" size="lg" @click="navigateTo('/auth/signup')">
+        <Button v-if="!isAuthenticated" size="lg" @click="navigateTo('/auth/signup')">
           Get Started Today
-        </UButton>
-        <UButton v-else-if="hasRole('organizer') || hasRole('admin')" size="lg" @click="navigateTo('/organizer')">
+        </Button>
+        <Button v-else-if="hasRole('organizer') || hasRole('admin')" size="lg" @click="navigateTo('/organizer')">
           Go to Dashboard
-        </UButton>
+        </Button>
       </div>
     </section>
   </div>

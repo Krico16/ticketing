@@ -9,3 +9,9 @@ node_modules
 .bolt
 *-lock.*
 dist
+.kiro
+.env.*
+*.lock
+
+.env.*
+!.env.local

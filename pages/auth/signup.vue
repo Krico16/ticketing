@@ -18,87 +18,91 @@
         </p>
       </div>
 
-      <UCard>
-        <form @submit.prevent="handleSignUp" class="space-y-6">
-          <div>
-            <UFormGroup label="Full name" required>
-              <UInput 
+      <Card>
+        <CardContent class="pt-6">
+          <form @submit.prevent="handleSignUp" class="space-y-6">
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-medium text-foreground">Full name *</label>
+              <Input 
+                id="name"
                 v-model="form.name" 
                 placeholder="Enter your full name"
-                :error="errors.name"
+                :error-message="errors.name"
               />
-            </UFormGroup>
-          </div>
+            </div>
 
-          <div>
-            <UFormGroup label="Email address" required>
-              <UInput 
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-medium text-foreground">Email address *</label>
+              <Input 
+                id="email"
                 v-model="form.email" 
                 type="email" 
                 placeholder="Enter your email"
-                :error="errors.email"
+                :error-message="errors.email"
               />
-            </UFormGroup>
-          </div>
+            </div>
 
-          <div>
-            <UFormGroup label="Password" required>
-              <UInput 
+            <div class="space-y-2">
+              <label for="password" class="text-sm font-medium text-foreground">Password *</label>
+              <Input 
+                id="password"
                 v-model="form.password" 
                 type="password" 
                 placeholder="Create a password"
-                :error="errors.password"
+                :error-message="errors.password"
               />
-            </UFormGroup>
-          </div>
+            </div>
 
-          <div>
-            <UFormGroup label="Confirm password" required>
-              <UInput 
+            <div class="space-y-2">
+              <label for="confirmPassword" class="text-sm font-medium text-foreground">Confirm password *</label>
+              <Input 
+                id="confirmPassword"
                 v-model="form.confirmPassword" 
                 type="password" 
                 placeholder="Confirm your password"
-                :error="errors.confirmPassword"
+                :error-message="errors.confirmPassword"
               />
-            </UFormGroup>
-          </div>
+            </div>
 
-          <div>
-            <UFormGroup label="Account type">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-foreground">Account type</label>
               <URadioGroup 
                 v-model="form.role"
                 :options="roleOptions"
               />
-            </UFormGroup>
-          </div>
-
-          <div class="flex items-start">
-            <UCheckbox 
-              v-model="form.acceptTerms" 
-              :error="errors.acceptTerms"
-            />
-            <div class="ml-3 text-sm">
-              <label class="text-gray-600">
-                I agree to the 
-                <a href="#" class="text-blue-600 hover:text-blue-500">Terms of Service</a>
-                and 
-                <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
-              </label>
             </div>
-          </div>
 
-          <div>
-            <UButton 
-              type="submit" 
-              block 
-              size="lg"
-              :loading="loading"
-            >
-              Create account
-            </UButton>
-          </div>
-        </form>
-      </UCard>
+            <div class="flex items-start">
+              <UCheckbox 
+                v-model="form.acceptTerms" 
+                :error="errors.acceptTerms"
+              />
+              <div class="ml-3 text-sm">
+                <label class="text-gray-600">
+                  I agree to the 
+                  <a href="#" class="text-blue-600 hover:text-blue-500">Terms of Service</a>
+                  and 
+                  <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <Button 
+                type="submit" 
+                class="w-full"
+                size="lg"
+                :disabled="loading"
+              >
+                <span v-if="loading" class="mr-2">
+                  <Icon name="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
+                </span>
+                Create account
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   </div>
 </template>

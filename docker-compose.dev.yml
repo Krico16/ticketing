@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: eventhub-dev
+    ports:
+      - "3000:3000"
+      - "24678:24678"  # Nuxt DevTools port
+    volumes:
+      # Mount source code for live editing and hot-reload
+      - .:/app
+      - /app/node_modules  # Anonymous volume for node_modules caching
+      - /app/.nuxt        # Cache .nuxt directory for performance
+      - /app/.output      # Cache .output directory
+    environment:
+      - NODE_ENV=development
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+      - NUXT_DEVTOOLS_ENABLED=true
+      - CHOKIDAR_USEPOLLING=true  # Enable polling for file watching in containers
+    networks:
+      - eventhub-dev
+    restart: unless-stopped
+    stdin_open: true  # Keep STDIN open for interactive debugging
+    tty: true        # Allocate a pseudo-TTY for better logging
+    command: ["bun", "run", "dev", "--host", "0.0.0.0"]
+
+networks:
+  eventhub-dev:
+    driver: bridge
+    name: eventhub-dev-network
+
+volumes:
+  # Named volume for node_modules caching across container rebuilds
+  node_modules_cache:
+    driver: local

@@ -15,7 +15,48 @@ export default defineNuxtConfig({
   },
   ui: {
     global: true,
-    icons: ['heroicons', 'lucide']
+  },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+    {
+      path: '~/components/ui',
+      prefix: '',
+      pathPrefix: false,
+    }
+  ],
+  // Performance optimizations for Shadcn integration
+  build: {
+    transpile: ['class-variance-authority', 'clsx', 'tailwind-merge']
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separate Shadcn components into their own chunk for better caching
+            'shadcn-core': ['~/components/ui/button.vue', '~/components/ui/card.vue', '~/components/ui/input.vue'],
+            'shadcn-complex': ['~/components/ui/dialog.vue', '~/components/ui/select.vue'],
+            // Separate utility libraries
+            'ui-utils': ['class-variance-authority', 'clsx', 'tailwind-merge']
+          }
+        }
+      },
+      // Enable tree-shaking
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug']
+        }
+      }
+    },
+    optimizeDeps: {
+      include: ['class-variance-authority', 'clsx', 'tailwind-merge']
+    }
   },
   tailwindcss: {
     config: {
@@ -28,8 +69,6 @@ export default defineNuxtConfig({
             'card-foreground': 'hsl(var(--card-foreground))',
             popover: 'hsl(var(--popover))',
             'popover-foreground': 'hsl(var(--popover-foreground))',
-            primary: 'hsl(var(--primary))',
-            'primary-foreground': 'hsl(var(--primary-foreground))',
             secondary: 'hsl(var(--secondary))',
             'secondary-foreground': 'hsl(var(--secondary-foreground))',
             muted: 'hsl(var(--muted))',
